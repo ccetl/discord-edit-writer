@@ -17,7 +17,7 @@ line_delay_max: float = 3.0
 
 def focused():
     window = win32gui.GetForegroundWindow()
-    name = "discord"
+    name = 'discord'
     return name in win32gui.GetClassName(window).lower() or name in win32gui.GetWindowText(window).lower()
 
 
