@@ -15,21 +15,41 @@ import win32gui
 # the delays to a value which is
 # suitable for your ping.
 
-action_delay_enabled = True
-action_delay_min = 1
-action_delay_max = 3
+ACTION_DELAY_ENABLED = False
+ACTION_DELAY_MIN = 1
+ACTION_DELAY_MAX = 3
 
-line_delay_enabled = True
-line_delay_min = 1
-line_delay_max = 3
+LINE_DELAY_ENABLED = True
+LINE_DELAY_MIN = 1
+LINE_DELAY_MAX = 3
 
-delete_message = False
+DELETE_MESSAGE = True
 
 
 def focused():
     window = win32gui.GetForegroundWindow()
     name = 'discord'
     return name in win32gui.GetClassName(window).lower() or name in win32gui.GetWindowText(window).lower()
+
+
+def delete_last_message():
+    time.sleep(random.uniform(LINE_DELAY_MIN, LINE_DELAY_MAX))
+    pyautogui.press('up')
+    if ACTION_DELAY_ENABLED:
+        time.sleep(random.uniform(ACTION_DELAY_MIN, ACTION_DELAY_MAX))
+    pyautogui.hotkey('ctrl', 'a')
+    if ACTION_DELAY_ENABLED:
+        time.sleep(random.uniform(ACTION_DELAY_MIN, ACTION_DELAY_MAX))
+    pyautogui.press('backspace')
+    if ACTION_DELAY_ENABLED:
+        time.sleep(random.uniform(ACTION_DELAY_MIN, ACTION_DELAY_MAX))
+    if ACTION_DELAY_ENABLED:
+        time.sleep(random.uniform(ACTION_DELAY_MIN, ACTION_DELAY_MAX))
+    pyautogui.press('enter')
+    if ACTION_DELAY_ENABLED:
+        time.sleep(random.uniform(ACTION_DELAY_MIN, ACTION_DELAY_MAX))
+    pyautogui.press('enter')
+    print("deleted message")
 
 
 def run():
@@ -44,44 +64,28 @@ def run():
             if line:
                 if i == 0:
                     pyautogui.typewrite(line)
-                    if action_delay_enabled:
-                        time.sleep(random.uniform(action_delay_min, action_delay_max))
+                    if ACTION_DELAY_ENABLED:
+                        time.sleep(random.uniform(ACTION_DELAY_MIN, ACTION_DELAY_MAX))
                     pyautogui.press('enter')
                 else:
                     pyautogui.press('up')
-                    if action_delay_enabled:
-                        time.sleep(random.uniform(action_delay_min, action_delay_max))
+                    if ACTION_DELAY_ENABLED:
+                        time.sleep(random.uniform(ACTION_DELAY_MIN, ACTION_DELAY_MAX))
                     pyautogui.hotkey('ctrl', 'a')
-                    if action_delay_enabled:
-                        time.sleep(random.uniform(action_delay_min, action_delay_max))
+                    if ACTION_DELAY_ENABLED:
+                        time.sleep(random.uniform(ACTION_DELAY_MIN, ACTION_DELAY_MAX))
                     pyautogui.typewrite(line)
-                    if action_delay_enabled:
-                        time.sleep(random.uniform(action_delay_min, action_delay_max))
+                    if ACTION_DELAY_ENABLED:
+                        time.sleep(random.uniform(ACTION_DELAY_MIN, ACTION_DELAY_MAX))
                     pyautogui.press('enter')
 
                 print("line " + str(i + 1) + "/" + str(length))
 
-                if line_delay_enabled and i != length - 1:
-                    time.sleep(random.uniform(line_delay_min, line_delay_max))
+                if LINE_DELAY_ENABLED and i != length - 1:
+                    time.sleep(random.uniform(LINE_DELAY_MIN, LINE_DELAY_MAX))
 
-        if delete_message:
-            time.sleep(random.uniform(line_delay_min, line_delay_max))
-            pyautogui.press('up')
-            if action_delay_enabled:
-                time.sleep(random.uniform(action_delay_min, action_delay_max))
-            pyautogui.hotkey('ctrl', 'a')
-            if action_delay_enabled:
-                time.sleep(random.uniform(action_delay_min, action_delay_max))
-            pyautogui.press('backspace')
-            if action_delay_enabled:
-                time.sleep(random.uniform(action_delay_min, action_delay_max))
-            if action_delay_enabled:
-                time.sleep(random.uniform(action_delay_min, action_delay_max))
-            pyautogui.press('enter')
-            if action_delay_enabled:
-                time.sleep(random.uniform(action_delay_min, action_delay_max))
-            pyautogui.press('enter')
-            print("deleted message")
+        if DELETE_MESSAGE:
+            delete_last_message()
 
 
 if __name__ == '__main__':
