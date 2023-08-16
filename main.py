@@ -25,7 +25,7 @@ def run():
     while not focused():
         time.sleep(1)
 
-    with open('./message.txt', 'r') as file:
+    with open('./message.txt', 'r', encoding='utf-8') as file:
         lines = file.readlines()
         for i in range(len(lines)):
             line = lines[i].strip()
